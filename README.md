@@ -6,3 +6,5 @@
 1. Setup
 2. Basics
 3. Clients & Servers
+4. Requests & Responses
+5. NPM

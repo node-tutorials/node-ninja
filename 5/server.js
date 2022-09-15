@@ -1,33 +1,19 @@
 const http = require("http");
 const fs = require("fs");
-
-// const server = http.createServer((req, res) => {
-//   // console.log(req.url, req.method);
-//   console.log(res);
-
-//   // set header content type
-//   // res.setHeader("Content-Type", "text/plain");
-//   res.setHeader("Content-Type", "text/html");
-
-//   // res.write("hello world");
-//   res.write("<p>Hello World</p>");
-//   res.write("<p>Hello World again</p>");
-//   res.end();
-// });
-
-// const server = http.createServer((req, res) => {
-//   res.setHeader("Content-Type", "text/html");
-//   fs.readFile("./views/index.html", (err, data) => {
-//     if (err) console.log(err);
-//     else {
-//       // res.write(data);
-//       res.end(data);
-//     }
-//     res.end();
-//   });
-// });
+const _ = require("lodash");
 
 const server = http.createServer((req, res) => {
+  // lodash
+  const num = _.random(0, 20);
+  console.log(num);
+
+  const greet = _.once(() => {
+    console.log("Hello");
+  });
+
+  greet();
+  greet();
+
   let path = "./views";
 
   switch (req.url) {
@@ -39,7 +25,7 @@ const server = http.createServer((req, res) => {
       path += "/about.html";
       res.statusCode = 200;
       break;
-    case "/about-gr":
+    case "/about-us":
       res.statusCode = 301;
       res.setHeader("Location", "/about");
       res.end();
