@@ -21,6 +21,10 @@ mongoose
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+/* urlencoded takes all the url encoded data, and it pass it in an object,
+that we can use on the request object. */
+app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded());
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
@@ -49,10 +53,61 @@ app.get("/blogs", (req, res) => {
     });
 });
 
+// POST REQUEST
+app.post("/blogs", (req, res) => {
+  // console.log(req.body);
+  const blog = new Blog(req.body);
+
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
+    })
+    .catch((er) => {
+      console.log(er);
+    });
+});
+
+// GET  SINGLE POST
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+  // console.log(id);
+  Blog.findById(id)
+    .then((result) => {
+      res.render("details", { blog: result, title: "Blog Details" });
+    })
+    .catch((er) => {
+      console.log(er);
+    });
+});
+
+// DELETE POST
+app.delete("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({ redirect: "/blogs" });
+    })
+    .catch((er) => {
+      console.log(er);
+    });
+});
+
 app.get("/blogs/create", (req, res) => {
   res.render("create", {
     title: "Create a new blog",
   });
+  blog
+    .save()
+    .then((result) => {
+      res.render("index", {
+        title: "All BLogs",
+        blogs: result,
+      });
+    })
+    .catch((er) => {
+      console.log(er);
+    });
 });
 
 // 404

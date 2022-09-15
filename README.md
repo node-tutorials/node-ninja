@@ -64,3 +64,6 @@
 * Output Documents in Views.
 
 10. Get, Post & Delete Requests.
+
+- Route Parameters:
+  - The variable parts of the route that may change value.
