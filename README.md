@@ -62,3 +62,5 @@
 
 * Getting and Saving Data.
 * Output Documents in Views.
+
+10. Get, Post & Delete Requests.
