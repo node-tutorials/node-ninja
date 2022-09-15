@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-// reading files
+// reading files // readFile is async
 fs.readFile("./docs/blog.txt", (err, data) => {
   if (err) console.log(err);
   console.log(data);
