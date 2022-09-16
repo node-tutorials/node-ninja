@@ -2,13 +2,14 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 
-const Blog = require("./models/blog");
+const blogRoutes = require("./routes/blogRoutes");
 
 const app = express();
 
 // connect to mongoDB
 const dbURI =
   "mongodb+srv://nodeninja:qweqwe@nodeninjacluster.ivpbzsg.mongodb.net/node-tuts?retryWrites=true&w=majority";
+
 mongoose
   .connect(dbURI)
   .then((res) => {
@@ -39,76 +40,13 @@ app.get("/about", (req, res) => {
 });
 
 // Blog routes
-app.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render("index", {
-        title: "All BLogs",
-        blogs: result,
-      });
-    })
-    .catch((er) => {
-      console.log(er);
-    });
-});
-
-// POST REQUEST
-app.post("/blogs", (req, res) => {
-  // console.log(req.body);
-  const blog = new Blog(req.body);
-
-  blog
-    .save()
-    .then((result) => {
-      res.redirect("/blogs");
-    })
-    .catch((er) => {
-      console.log(er);
-    });
-});
-
-// GET  SINGLE POST
-app.get("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-  // console.log(id);
-  Blog.findById(id)
-    .then((result) => {
-      res.render("details", { blog: result, title: "Blog Details" });
-    })
-    .catch((er) => {
-      console.log(er);
-    });
-});
-
-// DELETE POST
-app.delete("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-  Blog.findByIdAndDelete(id)
-    .then((result) => {
-      res.json({ redirect: "/blogs" });
-    })
-    .catch((er) => {
-      console.log(er);
-    });
-});
-
-app.get("/blogs/create", (req, res) => {
-  res.render("create", {
-    title: "Create a new blog",
-  });
-  blog
-    .save()
-    .then((result) => {
-      res.render("index", {
-        title: "All BLogs",
-        blogs: result,
-      });
-    })
-    .catch((er) => {
-      console.log(er);
-    });
-});
+// app.use(blogRoutes);
+/* We can scoop the above route to a specifiec URL.
+Now the use middleware will apply the blogRoutes 
+only when we go to /blogs. 
+ATENTION! In this case you have to remove the /blogs string
+from all the app.get(...) of the blogRoutes route.  */
+app.use("/blogs", blogRoutes);
 
 // 404
 app.use((req, res) => {
