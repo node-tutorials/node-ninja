@@ -67,3 +67,7 @@
 
 - Route Parameters:
   - The variable parts of the route that may change value.
+
+11. Express Router & MVC
+
+- We use the Express Router, to split our route into different files and manage them in small groups of routes that run together.
