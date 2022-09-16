@@ -1,5 +1,6 @@
 - YouTube tutorial: [Node.js Crash Course Tutorial](https://www.youtube.com/playlist?list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU)
-- [tutorial repo](https://github.com/iamshaunjp/node-crash-course)
+- [repo](https://github.com/iamshaunjp/node-crash-course)
+- [mongodb database](https://github.com/iamshaunjp/node-crash-course)
 
 ##### Lessons:
 
@@ -71,3 +72,10 @@
 11. Express Router & MVC
 
 - We use the Express Router, to split our route into different files and manage them in small groups of routes that run together.
+- MVC Basics:
+  - Stands fro Model, View, Controller
+  - MVC is a way of sstructuring our code & files
+  - Keeps code more modular, reusable & easier to read
+- Views are the html files.
+- Models is how we structure our data.
+- Controllers are the ones that form the link between the Models and the Views.
